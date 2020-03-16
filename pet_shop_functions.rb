@@ -28,7 +28,7 @@ def pets_by_breed(pet_shop, pet_name)
   breed_total = []
   for pet in pet_shop[:pets]
     if pet[:breed] == pet_name
-      breed_total.push(1)
+      breed_total.push(pet)
     end
   end
   return breed_total
@@ -52,11 +52,8 @@ def find_customer_by_name(customer_name)
 end
 
 def remove_pet_by_name(pet_shop, pet_name)
-  for pet in pet_shop[:pets]
-    if pet_name == pet[:name]
-      pet_shop[:pets].delete_if { |h| h[:name] == pet_name }
-    end
-  end
+  pet_name = find_pet_by_name(pet_shop, pet_name)
+  pet_shop[:pets].delete(pet_name)
 end
 
 def add_pet_to_stock(pet_shop, new_pet)
