@@ -10,7 +10,9 @@ def check_if_customer_by_name(customer_name)
 end
 
 def display_pets_instock(outputs)
+  puts outputs[:current_stock]
   for pet in @pet_shop[:pets]
+    puts outputs[:pet_details]
     puts pet
   end
   return_to_options(outputs)
@@ -250,7 +252,9 @@ outputs = {
 :display_receipt_pet => "\nReceipt:\n",
 :insufficient_funds => "\nSorry you have insufficient funds. Please add cash to your account.",
 :balance => "\nCash Balance:\n",
-:add_cash_to_account => "\nHow much cash would you like to enter into your account?"
+:add_cash_to_account => "\nHow much cash would you like to enter into your account?",
+:pet_details => "\nPet Details:\n",
+:current_stock => "\nCURRENT STOCK:\n",
 }
 
 File.open('/Users/user/ruby_projects/pet_shop/assets/logo.txt').each do |line|
