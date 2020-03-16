@@ -133,8 +133,11 @@ def user_options(outputs)
   elsif
     get_user_option == 4
     sell_pet_to_shop(outputs)
-  else
+  elsif
     get_user_option == 5
+    add_cash_to_account(outputs)
+  else
+    get_user_option == 6
     begin
       exit
     rescue SystemExit
@@ -198,6 +201,22 @@ def sell_pet_to_shop(outputs)
   end
 end
 
+def add_cash_to_account(outputs)
+  puts outputs[:security_add_cash]
+  customer_add_cash = gets.chomp.capitalize
+  if is_customer_buy_sell(outputs, customer_add_cash) == true
+    puts outputs[:add_cash_to_account]
+    add_cash = gets.chomp.to_i
+    find_customer_cash = find_customer_by_name(customer_add_cash)
+    add_customer_cash(find_customer_cash, add_cash)
+    puts outputs[:balance]
+    puts customer_cash(find_customer_cash)
+    return_to_options(outputs)
+  else
+    add_cash_to_account(outputs)
+  end
+end
+
 outputs = {
 :get_name => "\nTo sign in, please enter your name:",
 :get_pet => "\nTo check stock, please enter a pet name:",
@@ -209,17 +228,18 @@ outputs = {
 :pet_not_instock => "\nBad news. Pet is out of stock!",
 :buy_pet => "\nWould you like to purchase this pet? Y/N",
 :try_another_pet => "\nPlease select another pet!",
-:farewell => "\nThank you, come again!\n\n",
+:farewell => "\nThank you for visiting Camelot of Pets. Goodbye!\n\n",
 :stock_check => "\nWould you like to check our current stock? Y/N",
 :get_new_user_name => "\nTo register, please enter your name:",
 :get_user_cash => "\nHow much would you like to spend on a new pet?",
 :new_sign_in => "\nGreat - you are now registered.",
-:display_options => "\nYou now have five options:\n\n1. Display Stock\n2. Check Stock by Pet Name\n3. Buy a Pet\n4. Sell a Pet\n5. Exit\n\nPlease pick a number:\n",
+:display_options => "\nYou now have six options:\n\n1. Display Stock\n2. Check Stock by Pet Name\n3. Buy a Pet\n4. Sell a Pet\n5. Add Cash to Account\n6. Exit\n\nPlease pick a number:\n",
 :display_stock => "Display Stock",
 :welcome => "\nWelcome back - you are signed in!",
 :return_to_options => "\nPress enter to return to the main menu:",
 :security_buy => "\nFor security, please enter your name to buy a pet:",
 :security_sell => "\nFor security, please enter your name to sell a pet:",
+:security_add_cash => "\nFor security, please enter your name to add cash to your account:",
 :buy_pet_name => "\nPlease enter the name of the pet you want to buy:",
 :congratulations => "\nCongratulations! You have purchased a new pet!",
 :new_pet_name => "\nWhat is the name of the pet you would like to sell?",
@@ -228,8 +248,9 @@ outputs = {
 :new_pet_price => "\nWhat is the pet price?",
 :congratulations_sell => "\nCongratulations! You have sold your pet to Camelot of Pets!",
 :display_receipt_pet => "\nReceipt:\n",
-:insufficient_funds => "\nSorry you have insufficient funds.",
-:balance => "\nCash Balance:\n"
+:insufficient_funds => "\nSorry you have insufficient funds. Please add cash to your account.",
+:balance => "\nCash Balance:\n",
+:add_cash_to_account => "\nHow much cash would you like to enter into your account?"
 }
 
 File.open('/Users/user/ruby_projects/pet_shop/assets/logo.txt').each do |line|
