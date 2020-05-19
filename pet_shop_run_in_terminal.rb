@@ -257,7 +257,7 @@ outputs = {
 :current_stock => "\nCURRENT STOCK:\n",
 }
 
-File.open('/Users/user/ruby_projects/pet_shop/assets/logo.txt').each do |line|
+File.open('./assets/logo.txt').each do |line|
   puts line
 end
 
